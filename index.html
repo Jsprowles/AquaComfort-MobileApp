@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/jquery-1.6.4.js"></script>
+        <script src="js/jquery.mobile-1.1.0.js"></script>
+        <script src="js/seasons.js"></script>
+        <link href="css/jquery.mobile.structure-1.1.0.css" rel="stylesheet">
+        <link href="css/jquery.mobile.theme-1.1.0.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+    </head>
+    
+    <body>
+        <div data-role="page" id="page1">
+            <div data-role="header" id="header" data-theme="b">
+                <h1>AC Savings Calculator</h1>
+            </div>
+            <div data-role="content">
+                <fieldset id="choices" data-role="controlgroup">
+                    <legend></legend>
+                    <input type="radio" id="radio1" name="radio1" value="choice-1" checked="checked"
+                    data-theme="e">
+                    <label for="radio1">Pool Heating</label>
+                    <input type="radio" id="radio2" name="radio1" value="choice-2" data-theme="e">
+                    <label for="radio2">OptiFlex</label>
+                    <input type="radio" id="radio3" name="radio1" value="choice-3" data-theme="e">
+                    <label for="radio3">Pool Heating Emissions</label>
+                </fieldset>
+                <div data-role="collapsible-set" data-theme="b" data-content-theme="e">
+                    <div id="location" data-role="collapsible" data-collapsed="false" data-content-theme="c">
+                        <h1>Location</h1>
+                        <ul data-role="listview" id="city-select" data-inset="true" data-theme="e" data-filter-theme="e">
+                            <li id="al_birmingham"  data-theme="e">AL-Birmingham</li>
+                            <li id="al_mobile" data-theme="e">AL-Mobile</li>
+                            <li id="az_phoenix" data-theme="e">AZ-Phoenix</li>
+                            <li id="little_rock_ar" data-theme="e">AR-Little Rock</li>
+                            <li id="concord_ca" data-theme="e">CA-Concord</li>
+                            <li id="los_angeles_ca" data-theme="e">CA-Los Angeles</li>
+                            <li id="sacramento_ca" data-theme="e">CA-Sacramento</li>
+                            <li id="san_francisco_ca" data-theme="e">CA-San Francisco</li>
+                            <li id="san_diego_ca" data-theme="e">CA-San Diego</li>
+                            <li id="denver_co" data-theme="e">CO-Denver</li>
+                            
+                            
+                            <li id="hartford_ct" data-theme="e">CT-Hartford</li>
+                            <li id="fairfield_county_ct" data-theme="e">CT-Fairfield County</li>
+                            <li id="washington_dc" data-theme="e">DC-Washington</li>
+                            <li id="wilmington_de" data-theme="e">DE-Wilmington</li>
+                            <li id="daytona_beach_fl" data-theme="e">FL-Daytona Beach</li>
+                            <li id="fort_myers_fl" data-theme="e">FL-Fort Myers</li>
+                            <li id="gainesville_fl" data-theme="e">FL-Gainesville</li>
+                            <li id="jacksonville_fl" data-theme="e">FL-Jacksonville</li>
+                            <li id="miami_ft_lauderdale_fl" data-theme="e">FL-Miami/Ft. Lauderdale</li>
+                            <li id="melbourne_fl" data-theme="e">FL-Melbourne</li>
+                            
+                            
+                            <li id="orlando_fl" data-theme="e">FL-Orlando</li>
+                            <li id="pensacola_fl" data-theme="e">FL-Pensacola</li>
+                            <li id="sarasota_fl" data-theme="e">FL-Sarasota</li>
+                            <li id="tallahasee_fl" data-theme="e">FL-Tallahasee</li>
+                            <li id="tampa_fl" data-theme="e">FL-Tampa</li>
+                            <li id="atlanta_ga" data-theme="e">GA-Atlanta</li>
+                            <li id="savannah_ga" data-theme="e">GA-Savannah</li>
+                            <li id="boise_id" data-theme="e">ID-Boise</li>
+                            <li id="chicago_il" data-theme="e">IL-Chicago</li>
+                            <li id="peoria_il" data-theme="e">IL-Peoria</li>
+                            
+                            
+                            <li id="springfield_il" data-theme="e">IL-Springfield</li>
+                            <li id="indianapolis_in" data-theme="e">IN-Indianapolis</li>
+                            <li id="des_moines_ia" data-theme="e">IA-Des Moines</li>
+                            <li id="wichita_ks" data-theme="e">KS-Wichita</li>
+                            <li id="lexington_ky" data-theme="e">KY-Lexington</li>
+                            <li id="louisville_ky" data-theme="e">KY-Louisville</li>
+                            <li id="baton_rouge_la" data-theme="e">LA-Baton Rouge</li>
+                            <li id="new_orleans_la" data-theme="e">LA-New Orleans</li>
+                            <li id="shreveport_la" data-theme="e">LA-Shreveport</li>
+                            <li id="portland_me" data-theme="e">ME-Portland</li>
+                            
+                            
+                            <li id="baltimore_md" data-theme="e">MD-Baltimore</li>
+                            <li id="boston_ma" data-theme="e">MA-Boston</li>
+                            <li id="springfield_ma" data-theme="e">MA-Springfield</li>
+                            <li id="detroit_mi" data-theme="e">MI-Detroit</li>
+                            <li id="grand_rapids_mi" data-theme="e">MI-Grand Rapids</li>
+                            <li id="minneapolis_mn" data-theme="e">MN-Minneapolis</li>
+                            <li id="jackson_ms" data-theme="e">MS-Jackson</li>
+                            <li id="st_louis_mo" data-theme="e">MO-St. Louis</li>
+                            <li id="great_falls_mt" data-theme="e">MT-Great Falls</li>
+                            <li id="omaha_ne" data-theme="e">NE-Omaha</li>
+                            
+                            
+                            <li id="las_vegas_nv" data-theme="e">NV-Las Vegas</li>
+                            <li id="reno_nv" data-theme="e">NV-Reno</li>
+                            <li id="manchester_nh" data-theme="e">NH-Manchester</li>
+                            <li id="north_nj" data-theme="e">NJ-North</li>
+                            <li id="south_nj" data-theme="e">NJ-South</li>
+                            <li id="albuquerque_nm" data-theme="e">NM-Albuquerque</li>
+                            <li id="roswell_nm" data-theme="e">NM-Roswell</li>
+                            <li id="long_island_ny" data-theme="e">NY-Long Island</li>
+                            <li id="westchester_ny" data-theme="e">NY-Westchester</li>
+                            <li id="albany_ny" data-theme="e">NY-Albany</li>
+                            
+                            
+                            <li id="upstate_ny" data-theme="e">NY-Upstate</li>
+                            <li id="asheville_nc" data-theme="e">NC-Asheville</li>
+                            <li id="charlotte_nc" data-theme="e">NC-Charlotte</li>
+                            <li id="raleigh_nc" data-theme="e">NC-Raleigh</li>
+                            <li id="bismark_nd" data-theme="e">ND-Bismark</li>
+                            <li id="cleveland_oh" data-theme="e">OH-Cleveland</li>
+                            <li id="columbus_oh" data-theme="e">OH-Columbus</li>
+                            <li id="cincinnati_oh" data-theme="e">OH-Cincinnati</li>
+                            <li id="oklahoma_city_ok" data-theme="e">OK-Oklahoma City</li>
+                            <li id="portland_or" data-theme="e">OR-Portland</li>
+                            
+                            
+                            <li id="harrisburg_pa" data-theme="e">PA-Harrisburg</li>
+                            <li id="philadelphia_pa" data-theme="e">PA-Philadelphia</li>
+                            <li id="pittsburgh_pa" data-theme="e">PA-Pittsburgh</li>
+                            <li id="providence_ri" data-theme="e">RI-Providence</li>
+                            <li id="charleston_sc" data-theme="e">SC-Charleston</li>
+                            <li id="columbia_sc" data-theme="e">SC-Columbia</li>
+                            <li id="pierre_sd" data-theme="e">SD-Pierre</li>
+                            <li id="memphis_tn" data-theme="e">TN-Memphis</li>
+                            <li id="knoxville_tn" data-theme="e">TN-Knoxville</li>
+                            <li id="nashville_tn" data-theme="e">TN-Nashville</li>
+                            
+                            
+                            <li id="austin_tx" data-theme="e">TX-Austin</li>
+                            <li id="dallas_tx" data-theme="e">TX-Dallas</li>
+                            <li id="el_paso_tx" data-theme="e">TX-El Paso</li>
+                            <li id="houston_tx" data-theme="e">TX-Houston</li>
+                            <li id="san_antonio_tx" data-theme="e">TX-San Antonio</li>
+                            <li id="salt_lake_city_ut" data-theme="e">UT-Salt Lake City</li>
+                            <li id="norfolk_va" data-theme="e">VA-Norfolk</li>
+                            <li id="richmond_va" data-theme="e">VA-Richmond</li>
+                            <li id="burlington_vt" data-theme="e">VT-Burlington</li>
+                            <li id="spokane_wa" data-theme="e">WA-Spokane</li>
+                            
+                            
+                            <li id="seattle_wa" data-theme="e">WA-Seattle</li>
+                            <li id="milwaukee_wi" data-theme="e">WI-Milwaukee</li>
+                            <li id="madison_wi" data-theme="e">WI-Madison</li>
+                            <li id="charleston_wv" data-theme="e">WV-Charleston</li>
+                            <li id="cheyenne-wy" data-theme="e">WY - Cheyenne</li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible" id="season" data-content-theme="c">
+                        <h1>Swim Season</h1>
+                        <ul data-role="listview" id="season-select" data-inset="true">
+                            
+                            <li id="season1" data-theme="e">3/1 - 11/15</li>
+                            <li id="season2" data-theme="e">3/1 - 11/30</li>
+                            <li id="season3" data-theme="e">3/15 - 11/15</li>
+                            <li id="season4" data-theme="e">4/1 - 11/15</li>
+                            <li id="season5" data-theme="e">4/15 - 10/15</li>
+                            <li id="season6" data-theme="e">4/15 - 11/15</li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible" id="surfaceArea" data-content-theme="c">
+                        <h1>Surface Area</h1>
+                        <div data-role="fieldcontain">
+                            <h3>Surface Area (sq. ft)</h3>
+                            <input id="surface-area-input" type="text" value="Surface Area (sq. ft)" data-theme="e">
+                        </div>
+                        <div data-role="fieldcontain">
+                            <h3>or Dimensions (ft.)</h3>
+                            <input id="width-input" type="text" value="width" class="tiny" data-theme="e" style="width:28%; float:left;">
+                            <p style="float:left; padding: 0 10px 0 10px">X</p>
+                            <input id="length-input" type="text" value="length" class="tiny" data-theme="e" style="width:28%; float:left;">
+                            <p style="clear: both;"></p>
+                        </div>
+                    </div>
+                    <div id="tempContent" data-role="collapsible" data-content-theme="c">
+                        <h1>Desired Temperature</h1>
+                        <ul id="temp-select" data-role="listview" data-inset="true">
+                            <li id="temp78" data-theme="e">78 Degrees</li>
+                            <li id="temp79" data-theme="e">79 Degrees</li>
+                            <li id="temp80" data-theme="e">80 Degrees</li>
+                            <li id="temp81" data-theme="e">81 Degrees</li>
+                            <li id="temp82" data-theme="e">82 Degrees</li>
+                            <li id="temp83" data-theme="e">83 Degrees</li>
+                            <li id="temp84" data-theme="e">84 Degrees</li>
+                            <li id="temp85" data-theme="e">85 Degrees</li>
+                            <li id="temp86" data-theme="e">86 Degrees</li>
+                            <li id="temp87" data-theme="e">87 Degrees</li>
+                            <li id="temp88" data-theme="e">88 Degrees</li>
+                            <li id="temp89" data-theme="e">89 Degrees</li>
+                            <li id="temp90" data-theme="e">90 Degrees</li>
+                            <li id="temp100" data-theme="e">100 Degrees</li>
+                            <li id="temp104" data-theme="e">104 Degrees</li>
+                        </ul>
+                    </div>
+                    <div id="solarBlanket" data-role="collapsible" data-content-theme="c">
+                        <h1>Solar Blanket</h1>
+                        <ul id="blanket-select" data-role="listview" data-inset="true">
+                            <li id="Autocover" data-theme="e">Autocover</li>
+                            <li id="SolarBlanket" data-theme="e">Solar Blanket</li>
+                            <li id="No" data-theme="e">None</li>
+                        </ul>
+                    </div>
+                    <div id="heatSource" data-role="collapsible" data-content-theme="c">
+                        <h1>Heat Source</h1>
+                        <ul id="heat-select" data-role="listview" data-inset="true">
+                            <li id="NaturalGas" data-theme="e">Natural Gas</li>
+			    <li id="Propane" data-theme="e">Propane</li>
+                        </ul>
+                    </div>
+                    <div id="spaUse" data-role="collapsible" data-content-theme="c">
+                        <h1>Spa Usage (Days/Week)</h1>
+                        <ul id="spa-select" data-role="listview" data-inset="true">
+                            <li id="spa1" data-theme="e">1</li>
+                            <li id="spa2" data-theme="e">2</li>
+                            <li id="spa3" data-theme="e">3</li>
+                            <li id="spa4" data-theme="e">4</li>
+                            <li id="spa5" data-theme="e">5</li>
+                            <li id="spa6" data-theme="e">6</li>
+                            <li id="spa7" data-theme="e">7</li>
+                        </ul>
+                    </div>
+                </div>
+                <a data-role="button" id="calc" href="#page2" data-transition="slidefade" data-theme="e">Calculate</a>
+            </div>
+            <div data-role="footer" id="footer" data-theme="b">
+                <h1>Footer</h1>
+            </div>
+        </div>
+        <div data-role="page" id="page2">
+            <div data-role="header" id="header" data-theme="b">
+                <h1>AC Savings Results</h1>
+                <a data-role="button" data-rel="back" data-icon="back" data-theme="e">Back</a>
+            </div>
+            <div data-role="content">
+                <div class="div-widget">
+                    <div id="resultsTable" class="ui-grid-b">
+                        <div class="ui-block-a">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-b">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-c">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-a"></div>
+                        <div class="ui-block-b">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-c"></div>
+                        <div class="ui-block-a"></div>
+                        <div class="ui-block-b"></div>
+                        <div class="ui-block-c">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-a">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-b"></div>
+                        <div class="ui-block-c"></div>
+                        <div class="ui-block-a"></div>
+                        <div class="ui-block-b"></div>
+                        <div class="ui-block-c">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-a">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-b"></div>
+                        <div class="ui-block-c"></div>
+                        <div class="ui-block-a"></div>
+                        <div class="ui-block-b">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-c"></div>
+                        <div class="ui-block-a">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-b"></div>
+                        <div class="ui-block-c"></div>
+                        <div class="ui-block-a"></div>
+                        <div class="ui-block-b"></div>
+                        <div class="ui-block-c">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-a"></div>
+                        <div class="ui-block-b">
+                            <span>Text</span>
+                        </div>
+                        <div class="ui-block-c"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-role="footer" data-theme="b">
+                <h1>Footer</h1>
+            </div>
+        </div>
+    </body>
+
+</html>

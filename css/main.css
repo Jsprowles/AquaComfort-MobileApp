@@ -1,0 +1,12 @@
+.selected{
+    color: rgb(255, 255, 255) /*{e-body-color}*/;
+    text-shadow: 1px /*{e-body-shadow-x}*/ 1px /*{e-body-shadow-y}*/ 3px /*{e-body-shadow-radius}*/ rgb(1, 46, 87) /*{e-body-shadow-color}*/;
+    border: 1px solid rgb(2, 50, 136) /*{e-body-border}*/;
+    background: #fff9df /*{e-body-background-color}*/;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( rgb(205, 229, 255) /*{e-body-background-start}*/), to( rgb(11, 84, 141) /*{e-body-background-end}*/));
+    background-image: -webkit-linear-gradient( rgb(205, 229, 255) /*{e-body-background-start}*/, rgb(11, 84, 141) /*{e-body-background-end}*/);
+    background-image: -moz-linear-gradient( rgb(205, 229, 255) /*{e-body-background-start}*/, rgb(11, 84, 141) /*{e-body-background-end}*/);
+    background-image: -ms-linear-gradient( rgb(205, 229, 255) /*{e-body-background-start}*/, rgb(11, 84, 141) /*{e-body-background-end}*/);
+    background-image: -o-linear-gradient( rgb(205, 229, 255) /*{e-body-background-start}*/, rgb(11, 84, 141) /*{e-body-background-end}*/);
+    background-image: linear-gradient( rgb(205, 229, 255) /*{e-body-background-start}*/, rgb(11, 84, 141) /*{e-body-background-end}*/);
+}
