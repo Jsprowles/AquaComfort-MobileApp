@@ -1,16 +1,19 @@
 function getCalc(comparison, location,season,sarea,temp,blanket,spa,heat){
   
+  
+alert('clac running');  
 var comparison_choice = comparison;						
 var location_choice   = location;
 var season_choice     = season;
-var surface_area      = area;
+var surface_area      = sarea;
 var water_temp        = temp;
 var cover             = blanket;
 var blanket_factor    = [];
 
-if (comparison_choice == 'radio2')
+if (comparison_choice == 2)
 {
-		var spa_usage   = spa;
+		
+                var spa_usage   = spa;
 		var heat_source = heat;
 }
 var units='';
@@ -45,7 +48,7 @@ temp_factor[100] = 3;
 temp_factor[104] = 3.5;
 
 /* $temp_factor[$water_temp] = the temp factor */
-lArray
+
 var util_rates = [];
 				
 	util_rates["al_birmingham"] = {
@@ -1480,7 +1483,7 @@ var PHL = {
 var model = new String;
 var pct_hp = new Number;
 var pct_not_hp = new Number;
-
+console.log(size_factor +' '+ blanket_factor[cover] +' '+ temp_factor[water_temp] +' '+ PHL[location_choice][season_choice]+' '+location_choice+' '+season_choice);
 APHL = size_factor * blanket_factor[cover] * temp_factor[water_temp] * PHL[location_choice][season_choice];
 
 if( APHL < 300 )
@@ -1586,57 +1589,67 @@ pct_not_hp = 0.70;
    $pct_not_hp = % of time the propane or gas heater runs */
 
 /* these were straight-lined across all the models per Dave Rybacki */
+console.log(model);
+var btu_cap = new Number;
+var cop = new Number;
+var elec_cons = new Number;
 
 if( model == "AC-750" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "AC-1100" )
+else if ( model == "AC-1100" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "AC-1250" )
+else if ( model == "AC-1250" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "AC-1500" )
+else if ( model == "AC-1500" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "AC-1750" )
+else if ( model == "AC-1750" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "(2) AC-1500" )
+else if ( model == "(2) AC-1500" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "(3) AC-1500" )
+else if ( model == "(3) AC-1500" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "(4) AC-1500" )
+else if ( model == "(4) AC-1500" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "(5) AC-1500" )
+else if ( model == "(5) AC-1500" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
 	}
-elseif ( model == "(6) AC-1500" )
+else if ( model == "(6) AC-1500" )
 	{btu_cap = 115;
 	cop = 6;
 	elec_cons = 5.5;
-	}  
+	}
+else if ( model == "(6) AC-1750" )
+	{btu_cap = 115;
+	cop = 6;
+	elec_cons = 5.5;
+	};
+console.log(APHL + ' ' + btu_cap);
 /* btu_cap = Btu capacity of the ACT model (model)
    cop = COP of the ACT model
    elec_cons = electrical consumption of the ACT model */
@@ -1685,131 +1698,148 @@ var LP_pool_gallons = APHL * 1.56 / 0.78 * 0.82;
 var LP_pool_CO2 = LP_pool_gallons * 11.7;
 
 /* annual reduction in CO2 emissions from using ACT (on pool only) vs. Propane */
-LP_pool_CO2_redux = LP_pool_CO2 - AC_pool_CO2;
+var LP_pool_CO2_redux = LP_pool_CO2 - AC_pool_CO2;
 
 /* ------------------ OPTIFLEX CALCULATIONS ----------------------- */
 
-if (comparison_choice == 2)
-{
+if (comparison_choice == 2){
+                var spa_cost_factor = [];
+                spa_cost_factor["HP"] = 1;
+                spa_cost_factor["Natural Gas"] = 1.5;
+                spa_cost_factor["Propane"] = 1.8;
 
-spa_cost_factor["HP"] = 1;
-spa_cost_factor["Natural Gas"] = 1.5;
-spa_cost_factor["Propane"] = 1.8;
+                /* spa_cost_factor["HP"]
+                   spa_cost_factor["Natural Gas"]
+                   spa_cost_factor["Propane"] */
+                
+                /* ---------- SPA ONLY HEATED BY NAT GAS ------ */
+                        
+                /* NG spa cost = spa usage * 20 * 4 * NG spa cost factor */
+                var NG_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["Natural Gas"];
+                
+                /* ----------- POOL & SPA HEATED BY NAT GAS -----  */
+                
+                var NG_poolspa_cost = NG_pool_cost + NG_spa_cost;
+                
+                var NG_poolspa_therms = NG_poolspa_cost / util_rates[location_choice]["Therm"];
+                var NG_poolspa_CO2 = NG_poolspa_therms * 12.2;
+                
+                var NG_spa_therms = NG_poolspa_therms - NG_pool_therms;
+                
+                /* ---------- SPA ONLY HEATED BY PROPANE ------ */
+                        
+                /* LP spa cost = spa usage * 20 * 4 * LP spa cost factor */
+                var LP_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["Propane"];
+                
+                /* ----------- POOL & SPA HEATED BY PROPANE -----  */
+                
+                var LP_poolspa_cost = LP_pool_cost + LP_spa_cost;
+                
+                var LP_poolspa_gallons = LP_poolspa_cost / util_rates[location_choice]["Gallon"];
+                var LP_poolspa_CO2 = LP_poolspa_gallons * 11.7;
+                
+                var LP_spa_gallons = LP_poolspa_gallons - LP_pool_gallons;
+                
+                /* ---------- POOL ONLY PORTION HEATED BY OPTIFLEX COMBO ------ */
+                
+                /* hybrid's portion of pool util cost = ACT pool heater util cost * % of time heat pump runs */
+                var HP_portion_Opt_pool_cost = AC_pool_cost * pct_hp;
+                var non_HP_portion_Opt_pool_cost;
+                if (heat_source == "Natural Gas")
+                        {
+                                non_HP_portion_Opt_pool_cost = NG_pool_cost * pct_not_hp;
+                        }
+                        else if (heat_source == "Propane")
+                        {
+                                non_HP_portion_Opt_pool_cost = LP_pool_cost * pct_not_hp;
+                        }
+                
+                var Opt_pool_cost = HP_portion_Opt_pool_cost + non_HP_portion_Opt_pool_cost;
+                
+                /* ---------- SPA ONLY PORTION HEATED BY OPTIFLEX COMBO ------ */
+                        
+                /* Prorated HP spa cost = spa usage * 20 * 4 * HP spa cost factor * % of time heat pump runs */
+                var HP_portion_Opt_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["HP"] * pct_hp;
+                
+                var non_HP_portion_Opt_spa_cost = spa_usage * 20 * 4 * spa_cost_factor[heat_source] * pct_not_hp;
+                
+                var Opt_spa_cost = HP_portion_Opt_spa_cost + non_HP_portion_Opt_spa_cost; 
+                
+                /* ----------- POOL & SPA HEATED BY NON-HP PORTION OF OPTIFLEX COMBO -----  */
+                
+                var non_HP_portion_Opt_poolspa_cost = non_HP_portion_Opt_pool_cost + non_HP_portion_Opt_spa_cost;
+                
+                var non_HP_portion_Opt_fuel = non_HP_portion_Opt_poolspa_cost / util_rates[location_choice][units];
+                var non_HP_portion_Opt_CO2;
+                if (heat_source == "Natural Gas")
+                        {
+                                non_HP_portion_Opt_CO2 = non_HP_portion_Opt_fuel * 12.2;
+                        }
+                        else if (heat_source == "Propane")
+                        {
+                                non_HP_portion_Opt_CO2 = non_HP_portion_Opt_fuel * 11.7;
+                        }
+                
+                /* ----------- POOL & SPA HEATED BY HP PORTION OF OPTIFLEX COMBO -----  */
+                
+                var HP_portion_Opt_poolspa_cost = HP_portion_Opt_pool_cost + HP_portion_Opt_spa_cost;
+                
+                var HP_portion_Opt_elec = HP_portion_Opt_poolspa_cost / util_rates[location_choice]["KW"];
+                
+                var HP_portion_Opt_CO2 = HP_portion_Opt_elec * .9 ;
+                
+                /* ----------- POOL & SPA OPTIFLEX COMBO TOTAL COST & TOTAL CO2 ----------- */
+                
+                var Opt_poolspa_cost = Opt_pool_cost + Opt_spa_cost;
+                
+                var Opt_poolspa_CO2 = non_HP_portion_Opt_CO2 + HP_portion_Opt_CO2;
+                
+                /* ------------ POOL & SPA COST & CO2 SAVINGS USING OPTIFLEX ---- */
+                var non_HP_poolspa_cost;
+                var non_HP_poolspa_CO2;
+                if (heat_source == "Natural Gas")
+                        {
+                        non_HP_poolspa_cost = NG_poolspa_cost;
+                        non_HP_poolspa_CO2 = NG_poolspa_CO2;
+                        }
+                        else if (heat_source == "Propane")
+                        {
+                        non_HP_poolspa_cost = LP_poolspa_cost;
+                        non_HP_poolspa_CO2 = LP_poolspa_CO2;
+                        }
+                
+                var Opt_1yr_cost_savings = non_HP_poolspa_cost - Opt_poolspa_cost;
+                var Opt_5yr_cost_savings = Opt_1yr_cost_savings * 5 * 1.21;
+                var Opt_10yr_cost_savings = Opt_5yr_cost_savings + Opt_1yr_cost_savings * 5 * 1.89;
+                
+                /* Return on Optiflex investment = cost savings / up front install cost */
+                
+                var Opt_AC750_install_cost = 5000;
+                var Opt_ROI = 100 * Opt_1yr_cost_savings / Opt_AC750_install_cost;
+                var Opt_CO2_savings = non_HP_poolspa_CO2 - Opt_poolspa_CO2;
+                
+                /* --------- END OF OPTIFLEX ONLY CALCULATIONS -------- */
 
-/* spa_cost_factor["HP"]
-   spa_cost_factor["Natural Gas"]
-   spa_cost_factor["Propane"] */
-
-/* ---------- SPA ONLY HEATED BY NAT GAS ------ */
-	
-/* NG spa cost = spa usage * 20 * 4 * NG spa cost factor */
-NG_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["Natural Gas"];
-
-/* ----------- POOL & SPA HEATED BY NAT GAS -----  */
-
-NG_poolspa_cost = NG_pool_cost + NG_spa_cost;
-
-NG_poolspa_therms = NG_poolspa_cost / util_rates[location_choice]["Therm"];
-NG_poolspa_CO2 = NG_poolspa_therms * 12.2;
-
-NG_spa_therms = NG_poolspa_therms - NG_pool_therms;
-
-/* ---------- SPA ONLY HEATED BY PROPANE ------ */
-	
-/* LP spa cost = spa usage * 20 * 4 * LP spa cost factor */
-LP_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["Propane"];
-
-/* ----------- POOL & SPA HEATED BY PROPANE -----  */
-
-LP_poolspa_cost = LP_pool_cost + LP_spa_cost;
-
-LP_poolspa_gallons = LP_poolspa_cost / util_rates[location_choice]["Gallon"];
-LP_poolspa_CO2 = LP_poolspa_gallons * 11.7;
-
-LP_spa_gallons = LP_poolspa_gallons - LP_pool_gallons;
-
-/* ---------- POOL ONLY PORTION HEATED BY OPTIFLEX COMBO ------ */
-
-/* hybrid's portion of pool util cost = ACT pool heater util cost * % of time heat pump runs */
-HP_portion_Opt_pool_cost = AC_pool_cost * pct_hp;
-
-if (heat_source == "Natural Gas")
-	{
-	non_HP_portion_Opt_pool_cost = NG_pool_cost * pct_not_hp;
 	}
-	elseif (heat_source == "Propane")
-	{
-	non_HP_portion_Opt_pool_cost = LP_pool_cost * pct_not_hp;
-	}
-
-Opt_pool_cost = HP_portion_Opt_pool_cost + non_HP_portion_Opt_pool_cost;
-
-/* ---------- SPA ONLY PORTION HEATED BY OPTIFLEX COMBO ------ */
-	
-/* Prorated HP spa cost = spa usage * 20 * 4 * HP spa cost factor * % of time heat pump runs */
-HP_portion_Opt_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["HP"] * pct_hp;
-
-non_HP_portion_Opt_spa_cost = spa_usage * 20 * 4 * spa_cost_factor[heat_source] * pct_not_hp;
-
-Opt_spa_cost = HP_portion_Opt_spa_cost + non_HP_portion_Opt_spa_cost; 
-
-/* ----------- POOL & SPA HEATED BY NON-HP PORTION OF OPTIFLEX COMBO -----  */
-
-non_HP_portion_Opt_poolspa_cost = non_HP_portion_Opt_pool_cost + non_HP_portion_Opt_spa_cost;
-
-non_HP_portion_Opt_fuel = non_HP_portion_Opt_poolspa_cost / util_rates[location_choice][units];
-
-if (heat_source == "Natural Gas")
-	{
-	non_HP_portion_Opt_CO2 = non_HP_portion_Opt_fuel * 12.2;
-	}
-	elseif (heat_source == "Propane")
-	{
-	non_HP_portion_Opt_CO2 = non_HP_portion_Opt_fuel * 11.7;
-	}
-
-/* ----------- POOL & SPA HEATED BY HP PORTION OF OPTIFLEX COMBO -----  */
-
-HP_portion_Opt_poolspa_cost = HP_portion_Opt_pool_cost + HP_portion_Opt_spa_cost;
-
-HP_portion_Opt_elec = HP_portion_Opt_poolspa_cost / util_rates[location_choice]["KW"];
-
-HP_portion_Opt_CO2 = HP_portion_Opt_elec * .9 ;
-
-/* ----------- POOL & SPA OPTIFLEX COMBO TOTAL COST & TOTAL CO2 ----------- */
-
-Opt_poolspa_cost = Opt_pool_cost + Opt_spa_cost;
-
-Opt_poolspa_CO2 = non_HP_portion_Opt_CO2 + HP_portion_Opt_CO2;
-
-/* ------------ POOL & SPA COST & CO2 SAVINGS USING OPTIFLEX ---- */
-
-if (heat_source == "Natural Gas")
-	{
-	non_HP_poolspa_cost = NG_poolspa_cost;
-	non_HP_poolspa_CO2 = NG_poolspa_CO2;
-	}
-	elseif (heat_source == "Propane")
-	{
-	non_HP_poolspa_cost = LP_poolspa_cost;
-	non_HP_poolspa_CO2 = LP_poolspa_CO2;
-	}
-
-Opt_1yr_cost_savings = non_HP_poolspa_cost - Opt_poolspa_cost;
-Opt_5yr_cost_savings = Opt_1yr_cost_savings * 5 * 1.21;
-Opt_10yr_cost_savings = Opt_5yr_cost_savings + Opt_1yr_cost_savings * 5 * 1.89;
-
-/* Return on Optiflex investment = cost savings / up front install cost */
-
-Opt_AC750_install_cost = 5000;
-Opt_ROI = 100 * Opt_1yr_cost_savings / Opt_AC750_install_cost;
-Opt_CO2_savings = non_HP_poolspa_CO2 - Opt_poolspa_CO2;
-
-/* --------- END OF OPTIFLEX ONLY CALCULATIONS -------- */
-
-	}
-  
+  getResult();
      
+};
+
+function getResult(){
+               $('#page1').hide();
+               $('#page2').show();
+                $('#resultsTable').children('.location').innerHTML = 'TEASTIKNG';
+                $('#resultsTable').children('div.season span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.area span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.cover span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.model span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.acOC span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.ngOC span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.ngSave span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.proOC span').innerHTML = 'TESTING';
+                $('#resultsTable').children('div.proSave span').innerHTML = 'TESTING';
+                
+                
 };
 var getSeasons = function(e){
     
@@ -2009,9 +2039,15 @@ $(document).ready(function() {
     $('#heatSource').css('visibility','hidden');
     $('li').click(listClick);
     $(':radio').click(clickChoices);
+    $('#calc').click(function(event) {
+                event.preventDefault();
+                //alert('clicked'+ event.isDefaultPrevented());  
+                clickCalculate();
+                });
+    //$('calc').click(clickCalculate);
 
     function listClick(){
-        alert('++click++');
+        //alert('++click++');
         var container = $(this).parent().attr('id');
         
         if(container == 'city-select'){
@@ -2036,7 +2072,7 @@ $(document).ready(function() {
 
 
     function clickChoices(){
-        alert(this.id);
+        //alert(this.id);
         if(this.id == 'radio2'){
             $('#spaUse').removeAttr('style');
             $('#heatSource').removeAttr('style');
@@ -2048,11 +2084,79 @@ $(document).ready(function() {
         }
     };
 
-    var clickCalculate = function(){
-        //loop for all selected
-        //get inputs for calc
-        //run selected through calculator
-    };
+    function clickCalculate(){
+
+            
+            var choice = $("input[name='radio1']:checked").val();
+            
+            
+            
+            
+            
+            if($('#city-select').children('li').hasClass('selected')){
+                                var location = $('#city-select').children('.selected').attr('id');
+                }else{
+                                alert('Please Select A Location');
+                }
+            if($('#season-select').children('li').hasClass('selected')){
+                                 var swimSeason = $('#season-select').children('.selected').text();
+                }else{
+                                alert('Please Select A Desired Season');
+                }
+            if($("input[name='surface']").val() != "Surface Area (sq. ft)" && $("input[name='surface']").val().length > 0){
+                
+                                var surfaceArea = parseInt($("input[name='surface']").val());
+                
+                }else if($("input[name='width']").val() != "width" && $("input[name='length']").val() != "length" ){
+                
+                                var surfaceArea = parseInt($("input[name='width']").val()) * parseInt($("input[name='width']").val());
+                
+                }else{
+                                alert('Please Indicate your Pools Surface Area');
+                }
+            if($('#temp-select').children('li').hasClass('selected')){
+                                var desiredTemp = $('#temp-select').children('.selected').attr('id');
+                                var dt = desiredTemp.split('p');
+                                var desiredTemp = dt[1];
+                }else{
+                                alert('Please Select A Desired Temp');
+                }
+            if($('#blanket-select').children('li').hasClass('selected')){
+                                var solarBlanket = $('#blanket-select').children('.selected').attr('id');
+                }else{
+                                alert('Please Select A Solar Blanket Option');
+                }
+            
+            if(choice == '2'){
+                
+                alert('opti selected');
+                
+                if($('#spa-select').children('li').hasClass('selected')){
+                                var spaUsage = $('#spa-select').children('.selected').attr('id');
+                                var dt = spaUsage.split('a');
+                                var spaUsage = dt[1];
+                }else{
+                                alert('Please Select A Spa Option');
+                }
+                if($('#heat-select').children('li').hasClass('selected')){
+                                var heatSource = $('#heat-select').children('.selected').attr('id');
+                }else{
+                                alert('Please Selected A Heat Source');
+                }
+                
+            }else{
+                var spaUsage = false;
+                var heatSource = false;
+                
+            }
+            if(choice && location && swimSeason && surfaceArea && desiredTemp && solarBlanket){
+                console.log(choice+' '+location+' '+swimSeason+' '+surfaceArea+' '+parseInt(desiredTemp)+' '+solarBlanket+' '+spaUsage+' '+heatSource);
+                getCalc(choice, location, swimSeason, surfaceArea ,desiredTemp, solarBlanket, spaUsage, heatSource);
+            }else{
+                alert('pleaseSet all fields '+choice+location+swimSeason+surfaceArea+desiredTemp+solarBlanket+spaUsage+heatSource);
+            }
+
+};
 
 });
 

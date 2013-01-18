@@ -20,12 +20,12 @@
             <div data-role="content">
                 <fieldset id="choices" data-role="controlgroup">
                     <legend></legend>
-                    <input type="radio" id="radio1" name="radio1" value="choice-1" checked="checked"
+                    <input type="radio" id="radio1" name="radio1" value="1" checked="checked"
                     data-theme="e">
                     <label for="radio1">Pool Heating</label>
-                    <input type="radio" id="radio2" name="radio1" value="choice-2" data-theme="e">
+                    <input type="radio" id="radio2" name="radio1" value="2" data-theme="e">
                     <label for="radio2">OptiFlex</label>
-                    <input type="radio" id="radio3" name="radio1" value="choice-3" data-theme="e">
+                    <input type="radio" id="radio3" name="radio1" value="3" data-theme="e">
                     <label for="radio3">Pool Heating Emissions</label>
                 </fieldset>
                 <div data-role="collapsible-set" data-theme="b" data-content-theme="e">
@@ -163,13 +163,13 @@
                         <h1>Surface Area</h1>
                         <div data-role="fieldcontain">
                             <h3>Surface Area (sq. ft)</h3>
-                            <input id="surface-area-input" type="text" value="Surface Area (sq. ft)" data-theme="e">
+                            <input id="surface-area-input" type="text" name="surface"  data-theme="e">
                         </div>
                         <div data-role="fieldcontain">
                             <h3>or Dimensions (ft.)</h3>
-                            <input id="width-input" type="text" value="width" class="tiny" data-theme="e" style="width:28%; float:left;">
+                            <input id="width-input" type="text" value="width" name="width" class="tiny" data-theme="e" style="width:28%; float:left;">
                             <p style="float:left; padding: 0 10px 0 10px">X</p>
-                            <input id="length-input" type="text" value="length" class="tiny" data-theme="e" style="width:28%; float:left;">
+                            <input id="length-input" type="text" value="length" name="length" class="tiny" data-theme="e" style="width:28%; float:left;">
                             <p style="clear: both;"></p>
                         </div>
                     </div>
@@ -221,13 +221,15 @@
                         </ul>
                     </div>
                 </div>
-                <a data-role="button" id="calc" href="#page2" data-transition="slidefade" data-theme="e">Calculate</a>
+                <a data-role="button" id="calc"  data-transition="slidefade" data-theme="e">Calculate</a>
+                <!--href="#page2"-->
             </div>
             <div data-role="footer" id="footer" data-theme="b">
                 <h1>Footer</h1>
             </div>
         </div>
         <div data-role="page" id="page2">
+            
             <div data-role="header" id="header" data-theme="b">
                 <h1>AC Savings Results</h1>
                 <a data-role="button" data-rel="back" data-icon="back" data-theme="e">Back</a>
@@ -235,60 +237,40 @@
             <div data-role="content">
                 <div class="div-widget">
                     <div id="resultsTable" class="ui-grid-b">
-                        <div class="ui-block-a">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-b">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-c">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-a"></div>
-                        <div class="ui-block-b">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-c"></div>
-                        <div class="ui-block-a"></div>
+                        <div class="ui-block-a"><span>Location</span></div>
                         <div class="ui-block-b"></div>
-                        <div class="ui-block-c">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-a">
-                            <span>Text</span>
-                        </div>
+                        <div class="location ui-block-c"><span></span></div>
+                        
+                        <div class="ui-block-a"><span>Desired Swim Season</span></div>
                         <div class="ui-block-b"></div>
-                        <div class="ui-block-c"></div>
-                        <div class="ui-block-a"></div>
+                        <div class="season ui-block-c"><span></span></div>
+                        
+                        <div class="ui-block-a"><span>Pool Surface Area</span></div>
                         <div class="ui-block-b"></div>
-                        <div class="ui-block-c">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-a">
-                            <span>Text</span>
-                        </div>
+                        <div class="area ui-block-c"><span></span></div>
+                        
+                        <div class="ui-block-a"><span>Cover Type</span></div>
                         <div class="ui-block-b"></div>
-                        <div class="ui-block-c"></div>
-                        <div class="ui-block-a"></div>
-                        <div class="ui-block-b">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-c"></div>
-                        <div class="ui-block-a">
-                            <span>Text</span>
-                        </div>
+                        <div class="cover ui-block-c"><span></span></div>
+                        
+                        <div class="ui-block-a"><span>AquaComfort Model</span></div>
                         <div class="ui-block-b"></div>
-                        <div class="ui-block-c"></div>
-                        <div class="ui-block-a"></div>
-                        <div class="ui-block-b"></div>
-                        <div class="ui-block-c">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-a"></div>
-                        <div class="ui-block-b">
-                            <span>Text</span>
-                        </div>
-                        <div class="ui-block-c"></div>
+                        <div class="model ui-block-c"><span></span></div>
+                        
+                        <div class="ui-block-a"><span><strong>Heating Option</strong></span></div>
+                        <div class="ui-block-b"><strong>Annual Cost</strong></div>
+                        <div class="ui-block-c"><strong>Savings w/ AquaComfort</strong></div>
+                        
+                        <div class="ui-block-a"><span>AquaComfort</span></div>
+                        <div class="acOC ui-block-b"><span></span></div>
+                        <div class="ui-block-c"><span></span></div>
+                        <div class="ui-block-a"><span>Natural Gas Heater</span></div>
+                        <div class="ngOC ui-block-b"><span></span></div>
+                        <div class="ngSave ui-block-c"><span></span></div>
+                        <div class="ui-block-a"><span>Propane Heater</span></div>
+                        <div class="proOC ui-block-b"><span></span></div>
+                        <div class="proSave ui-block-c"><span></span></div>
+                        
                     </div>
                 </div>
             </div>
