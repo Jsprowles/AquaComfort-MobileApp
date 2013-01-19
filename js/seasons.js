@@ -1,7 +1,7 @@
 function getCalc(comparison, location,season,sarea,temp,blanket,spa,heat){
   
   
-alert('clac running');  
+ 
 var comparison_choice = comparison;						
 var location_choice   = location;
 var season_choice     = season;
@@ -16,6 +16,7 @@ if (comparison_choice == 2)
                 var spa_usage   = spa;
 		var heat_source = heat;
 }
+
 var units='';
 if (heat_source == "Natural Gas") {
         units = "Therm";
@@ -1649,7 +1650,7 @@ else if ( model == "(6) AC-1750" )
 	cop = 6;
 	elec_cons = 5.5;
 	};
-console.log(APHL + ' ' + btu_cap);
+
 /* btu_cap = Btu capacity of the ACT model (model)
    cop = COP of the ACT model
    elec_cons = electrical consumption of the ACT model */
@@ -1821,23 +1822,64 @@ if (comparison_choice == 2){
                 /* --------- END OF OPTIFLEX ONLY CALCULATIONS -------- */
 
 	}
-  getResult();
+        var defaults = {
+                'choice' : comparison_choice,
+                'location' : location_choice,
+                'season' : season_choice,
+                'area' : surface_area,
+                'water_temp' : water_temp,
+                'cover' : cover,
+                'model' : model
+        };
+        if(comparison_choice == 2){
+        
+                var values = {
+                        'spa' : spa_usage,
+                        'heatSource' : heat_source,
+                        'optPoolSpaCost':Opt_poolspa_cost,
+                        'nonHPPoolSpaCost':non_HP_poolspa_cost,
+                        '1yrCost':Opt_1yr_cost_savings,
+                        '5yrCost':Opt_5yr_cost_savings,
+                        '10yrCost':Opt_10yr_cost_savings,
+                        'optROI':Opt_ROI
+                };
+        }else if(comparison_choice == 3){
+                var values = {
+                        'acPoolCO2': AC_pool_CO2,
+                        'optCO2Save': Opt_Co2_savings,
+                        'ngPoolCO2' : NG_pool_CO2,
+                        'ngPoolCO2Save': NG_pool_CO2_redux,
+                        'lpPoolCO2':LP_pool_CO2,
+                        'lpPoolCO2Save':LP_pool_CO2_redux,
+                };        
+        }else{
+        
+                var values = {
+                        'acPoolCost':AC_pool_cost,
+                        'ngPoolCost':NG_pool_cost,
+                        'ngPoolCostSave':NG_pool_cost_redux,
+                        'lpPoolCost':LP_pool_cost,
+                        'lpPoolCostSave':LP_pool_cost_redux,
+                };
+        }
+  getResult(defaults, values);
      
 };
 
-function getResult(){
-               $('#page1').hide();
-               $('#page2').show();
-                $('#resultsTable').children('.location').innerHTML = 'TEASTIKNG';
-                $('#resultsTable').children('div.season span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.area span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.cover span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.model span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.acOC span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.ngOC span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.ngSave span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.proOC span').innerHTML = 'TESTING';
-                $('#resultsTable').children('div.proSave span').innerHTML = 'TESTING';
+function getResult(defaults, values){
+                //$('#page1').hide();
+                //console.log(choice+' '+location+' '+swimSeason+' '+surfaceArea+' '+parseInt(desiredTemp)+' '+solarBlanket+' '+spaUsage+' '+heatSource);
+                //$('#page2').show();
+                $('#resultsTable').children('.location').append(defaults['location']);
+                $('#resultsTable').children('.season').append(defaults['season']);
+                $('#resultsTable').children('.area').append(defaults['area']);
+                $('#resultsTable').children('.cover').append(defaults['cover']);
+                $('#resultsTable').children('.model').append(defaults['model']);
+                $('#resultsTable').children('.acOC').append('$'+values['acPoolCost'].toFixed(2));
+                $('#resultsTable').children('.ngOC').append('$'+values['ngPoolCost'].toFixed(2));
+                $('#resultsTable').children('.ngSave').append('$'+values['ngPoolCostSave'].toFixed(2));
+                $('#resultsTable').children('.proOC').append('$'+values['lpPoolCost'].toFixed(2));
+                $('#resultsTable').children('.proSave').append('$'+values['lpPoolCostSave'].toFixed(2));
                 
                 
 };
@@ -2040,7 +2082,7 @@ $(document).ready(function() {
     $('li').click(listClick);
     $(':radio').click(clickChoices);
     $('#calc').click(function(event) {
-                event.preventDefault();
+                //event.preventDefault();
                 //alert('clicked'+ event.isDefaultPrevented());  
                 clickCalculate();
                 });
@@ -2150,7 +2192,7 @@ $(document).ready(function() {
                 
             }
             if(choice && location && swimSeason && surfaceArea && desiredTemp && solarBlanket){
-                console.log(choice+' '+location+' '+swimSeason+' '+surfaceArea+' '+parseInt(desiredTemp)+' '+solarBlanket+' '+spaUsage+' '+heatSource);
+                
                 getCalc(choice, location, swimSeason, surfaceArea ,desiredTemp, solarBlanket, spaUsage, heatSource);
             }else{
                 alert('pleaseSet all fields '+choice+location+swimSeason+surfaceArea+desiredTemp+solarBlanket+spaUsage+heatSource);
