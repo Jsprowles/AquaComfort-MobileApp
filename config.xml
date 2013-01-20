@@ -3,14 +3,14 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.signaturepoolheaters.aquaComfort"
         versionCode="1" 
-        version   = "1.0.0">
+        version   = "1.0.1">
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Aqua Comfort Pool Heaters</name>
+    <name>AquaComfort HeatPumps</name>
 
     <description>
-        Aqua Comfort Pool Heaters buying guide.  This app will assisst you on finding the best system for your needs. 
+        AquaComfort HeatPumps buying guide.  This app will assisst you on finding the best system for your needs. 
     </description>
 
     <author href="http://www.codecreator.com" email="contact@codecreator.com">

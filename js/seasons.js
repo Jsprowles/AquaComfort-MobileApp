@@ -1813,7 +1813,7 @@ if (comparison_choice == 2){
                 
                 var Opt_AC750_install_cost = 5000;
                 var Opt_ROI = 100 * Opt_1yr_cost_savings / Opt_AC750_install_cost;
-                var Opt_CO2_savings = non_HP_poolspa_CO2 - Opt_poolspa_CO2;
+                 var Opt_CO2_savings = non_HP_poolspa_CO2 - Opt_poolspa_CO2;
                 
                 /* --------- END OF OPTIFLEX ONLY CALCULATIONS -------- */
 
