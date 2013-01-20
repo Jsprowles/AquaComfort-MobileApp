@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.signaturepoolheaters.aquaComfort"
+        versionCode="1" 
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Aqua Comfort Pool Heaters</name>
+
+    <description>
+        Aqua Comfort Pool Heaters buying guide.  This app will assisst you on finding the best system for your needs. 
+    </description>
+
+    <author href="http://www.codecreator.com" email="contact@codecreator.com">
+        Jeremiah Sprowles 
+    </author>
+
+</widget>
