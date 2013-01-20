@@ -10,3 +10,11 @@
     background-image: -o-linear-gradient( rgb(205, 229, 255) /*{e-body-background-start}*/, rgb(11, 84, 141) /*{e-body-background-end}*/);
     background-image: linear-gradient( rgb(205, 229, 255) /*{e-body-background-start}*/, rgb(11, 84, 141) /*{e-body-background-end}*/);
 }
+#resultsTable {
+    line-height: 1.5em;
+}
+#resultsTable strong{
+    line-height: 1.8em;
+    font-size: 1.1em;
+}
+

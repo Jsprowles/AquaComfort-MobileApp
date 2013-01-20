@@ -18,7 +18,7 @@ if (comparison_choice == 2)
 }
 
 var units='';
-if (heat_source == "Natural Gas") {
+if (heat_source == "NaturalGas") {
         units = "Therm";
 } else if (heat_source == "Propane") {
 	units = "Gallon";
@@ -1484,7 +1484,6 @@ var PHL = {
 var model = new String;
 var pct_hp = new Number;
 var pct_not_hp = new Number;
-console.log(size_factor +' '+ blanket_factor[cover] +' '+ temp_factor[water_temp] +' '+ PHL[location_choice][season_choice]+' '+location_choice+' '+season_choice);
 APHL = size_factor * blanket_factor[cover] * temp_factor[water_temp] * PHL[location_choice][season_choice];
 
 if( APHL < 300 )
@@ -1559,19 +1558,16 @@ pct_not_hp = 0.50;
 }
 else if ( APHL < 4000 )
 {model = "(3) AC-1500";
-
 pct_hp = 0.50;
 pct_not_hp = 0.50;
 }
 else if ( APHL < 6000 )
 {model = "(4) AC-1500";
-
 pct_hp = 0.50;
 pct_not_hp = 0.50;
 }
 else if ( APHL < 8000 )
 {model = "(5) AC-1500";
-
 pct_hp = 0.50;
 pct_not_hp = 0.50;
 }
@@ -1706,17 +1702,17 @@ var LP_pool_CO2_redux = LP_pool_CO2 - AC_pool_CO2;
 if (comparison_choice == 2){
                 var spa_cost_factor = [];
                 spa_cost_factor["HP"] = 1;
-                spa_cost_factor["Natural Gas"] = 1.5;
+                spa_cost_factor["NaturalGas"] = 1.5;
                 spa_cost_factor["Propane"] = 1.8;
 
                 /* spa_cost_factor["HP"]
-                   spa_cost_factor["Natural Gas"]
+                   spa_cost_factor["NaturalGas"]
                    spa_cost_factor["Propane"] */
                 
                 /* ---------- SPA ONLY HEATED BY NAT GAS ------ */
                         
                 /* NG spa cost = spa usage * 20 * 4 * NG spa cost factor */
-                var NG_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["Natural Gas"];
+                var NG_spa_cost = spa_usage * 20 * 4 * spa_cost_factor["NaturalGas"];
                 
                 /* ----------- POOL & SPA HEATED BY NAT GAS -----  */
                 
@@ -1746,7 +1742,7 @@ if (comparison_choice == 2){
                 /* hybrid's portion of pool util cost = ACT pool heater util cost * % of time heat pump runs */
                 var HP_portion_Opt_pool_cost = AC_pool_cost * pct_hp;
                 var non_HP_portion_Opt_pool_cost;
-                if (heat_source == "Natural Gas")
+                if (heat_source == "NaturalGas")
                         {
                                 non_HP_portion_Opt_pool_cost = NG_pool_cost * pct_not_hp;
                         }
@@ -1772,7 +1768,7 @@ if (comparison_choice == 2){
                 
                 var non_HP_portion_Opt_fuel = non_HP_portion_Opt_poolspa_cost / util_rates[location_choice][units];
                 var non_HP_portion_Opt_CO2;
-                if (heat_source == "Natural Gas")
+                if (heat_source == "NaturalGas")
                         {
                                 non_HP_portion_Opt_CO2 = non_HP_portion_Opt_fuel * 12.2;
                         }
@@ -1798,12 +1794,12 @@ if (comparison_choice == 2){
                 /* ------------ POOL & SPA COST & CO2 SAVINGS USING OPTIFLEX ---- */
                 var non_HP_poolspa_cost;
                 var non_HP_poolspa_CO2;
-                if (heat_source == "Natural Gas")
+                if (heat_source == "NaturalGas")
                         {
                         non_HP_poolspa_cost = NG_poolspa_cost;
                         non_HP_poolspa_CO2 = NG_poolspa_CO2;
                         }
-                        else if (heat_source == "Propane")
+                        else if(heat_source == "Propane")
                         {
                         non_HP_poolspa_cost = LP_poolspa_cost;
                         non_HP_poolspa_CO2 = LP_poolspa_CO2;
@@ -1841,17 +1837,23 @@ if (comparison_choice == 2){
                         '1yrCost':Opt_1yr_cost_savings,
                         '5yrCost':Opt_5yr_cost_savings,
                         '10yrCost':Opt_10yr_cost_savings,
+                        'optCO2Save': Opt_CO2_savings,
                         'optROI':Opt_ROI
                 };
+                
+                //console.log(Opt_poolspa_cost, non_HP_poolspa_cost, Opt_CO2_savings); 
+                
         }else if(comparison_choice == 3){
                 var values = {
                         'acPoolCO2': AC_pool_CO2,
-                        'optCO2Save': Opt_Co2_savings,
+                        'optCO2Save': Opt_CO2_savings,
                         'ngPoolCO2' : NG_pool_CO2,
                         'ngPoolCO2Save': NG_pool_CO2_redux,
                         'lpPoolCO2':LP_pool_CO2,
                         'lpPoolCO2Save':LP_pool_CO2_redux,
-                };        
+                        
+                };
+                //console.log(NG_pool_CO2, NG_pool_CO2_redux, LP_pool_CO2, LP_pool_CO2_redux);
         }else{
         
                 var values = {
@@ -1875,17 +1877,47 @@ function getResult(defaults, values){
                 $('#resultsTable').children('.area').append(defaults['area']);
                 $('#resultsTable').children('.cover').append(defaults['cover']);
                 $('#resultsTable').children('.model').append(defaults['model']);
-                $('#resultsTable').children('.acOC').append('$'+values['acPoolCost'].toFixed(2));
-                $('#resultsTable').children('.ngOC').append('$'+values['ngPoolCost'].toFixed(2));
-                $('#resultsTable').children('.ngSave').append('$'+values['ngPoolCostSave'].toFixed(2));
-                $('#resultsTable').children('.proOC').append('$'+values['lpPoolCost'].toFixed(2));
-                $('#resultsTable').children('.proSave').append('$'+values['lpPoolCostSave'].toFixed(2));
+                if(defaults.choice == 2){
+                                $('#var').children().remove();
+                                var row = '<div class="ui-block-a"><span>Spa Usage (days/week)</span></div><div class="ui-block-b"></div><div class="ui-block-c"><span>'+values['spa']+'<span></div>';
+                                row += '<div class="ui-block-a"><span>Type of Heater</span></div><div class="ui-block-b"></div><div class="ui-block-c">'+values['heatSource']+'</div>';
+                                row += '<div class="ui-block-a"><strong>Cost Comparison</strong></div><div class="ui-block-b"></div><div class="ui-block-c"><strong>Annual Utility Costs</strong></div>'; 
+                                row += '<div class="ui-block-a"><span>Optiflex&trade; Pool Heating System</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span>$'+values['optPoolSpaCost'].toFixed(2)+'</span></div>';
+                                row += '<div class="ui-block-a"><span>Natural Gas Heater (alone)</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span></span>$'+values['nonHPPoolSpaCost'].toFixed(2)+'</div>';
+                                row += '<div class="ui-block-a"><span>Annual Operating Cost Savings</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span>$'+values['1yrCost'].toFixed(2)+'</span></div>';
+                                row += '<div class="ui-block-a"><span>Return On Investment (Tax Free)</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span>'+values['optROI'].toFixed(2)+'%</span></div>';
+                                row += '<div class="ui-block-a"><span>Cost Savings Thru 5 years</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span></span>$'+values['5yrCost'].toFixed(2)+'</div>';
+                                row += '<div class="ui-block-a"><span>Cost Savings Thru 10 years</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span>$'+values['10yrCost'].toFixed(2)+'</span></div>';
+                                row += '<div class="ui-block-a"><strong>CO<sub>2</sub> Comparison</strong></span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><strong>Annual CO<sub>2</sub> Savings (lbs)</strong></div>';
+                                row += '<div class="ui-block-a"><span>Annual CO<sub>2</sub> Savings</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span>'+values['optCO2Save'].toFixed(0)+'</span></div>';
+                                $('#var').append(row);
+                }else if(defaults.choice == 3){
+                                $('#var').children().remove();
+                                var row = '<div class="ui-block-a"><Strong>Annual CO<sub>2</sub> Reductions:</strong></div><div class="ui-block-b"><strong></strong></div><div class="ui-block-c"><span><span></div>';
+                                row += '<div class="ui-block-a"><span>'+ 'vs. Natural Gas Heater' +'</span></div><div class="ui-block-b"></div><div class="ui-block-c">'+values['ngPoolCO2Save'].toFixed(0)+'</div>';
+                                row += '<div class="ui-block-a"><span>'+ 'vs. Propane Heater' +'</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span>'+values['lpPoolCO2Save'].toFixed(0)+'</span></div>'; 
+                                $('#var').append(row);
+                }else{
+                                $('#var').children().remove();
+                                var row = '<div class="ui-block-a"><span><strong>Heating Option</strong></span></div><div class="ui-block-b"><strong>Annual Cost</strong></div><div class="ui-block-c"><strong>Savings</strong></div>';
+                                row += '<div class="ui-block-a"><span>AquaComfort</span></div><div class="ui-block-b"><span>$'+values['acPoolCost'].toFixed(2)+'</span></div><div class="ui-block-c"><span></span></div>';
+                                row += '<div class="ui-block-a"><span>Natural Gas Heater</span></div><div class="ngOC ui-block-b"><span>$'+values['npPoolCost'].toFixed(2)+'</span></div><div class="ui-block-c"><span>$'+values['npPoolCostSave'].toFixed(2)+'</span></div>';
+                                row += '<div class="ui-block-a"><span>Propane Heater</span></div><div class="proOC ui-block-b"><span>$'+values['lpPoolCost'].toFixed(2)+'</span></div><div class="ui-block-c"><span></span>$'+values['lpPoolCostSave'].toFixed(2)+'</div>';
+                                $('#var').append(row);
+                }
                 
+                
+                
+
+
+
+
+                //        </div>
                 
 };
 var getSeasons = function(e){
     
-    //alert(e+' this is my seasons test');
+
     var location_choice = e					
     var season_list = [];
         season_list["al_birmingham"] = 4;
@@ -2082,14 +2114,13 @@ $(document).ready(function() {
     $('li').click(listClick);
     $(':radio').click(clickChoices);
     $('#calc').click(function(event) {
-                //event.preventDefault();
-                //alert('clicked'+ event.isDefaultPrevented());  
+                
                 clickCalculate();
-                });
-    //$('calc').click(clickCalculate);
+    });
+    
 
     function listClick(){
-        //alert('++click++');
+        
         var container = $(this).parent().attr('id');
         
         if(container == 'city-select'){
@@ -2114,7 +2145,7 @@ $(document).ready(function() {
 
 
     function clickChoices(){
-        //alert(this.id);
+
         if(this.id == 'radio2'){
             $('#spaUse').removeAttr('style');
             $('#heatSource').removeAttr('style');
@@ -2171,7 +2202,7 @@ $(document).ready(function() {
             
             if(choice == '2'){
                 
-                alert('opti selected');
+               
                 
                 if($('#spa-select').children('li').hasClass('selected')){
                                 var spaUsage = $('#spa-select').children('.selected').attr('id');
@@ -2195,7 +2226,7 @@ $(document).ready(function() {
                 
                 getCalc(choice, location, swimSeason, surfaceArea ,desiredTemp, solarBlanket, spaUsage, heatSource);
             }else{
-                alert('pleaseSet all fields '+choice+location+swimSeason+surfaceArea+desiredTemp+solarBlanket+spaUsage+heatSource);
+                alert('Please make sure all fields have an option selected');
             }
 
 };
