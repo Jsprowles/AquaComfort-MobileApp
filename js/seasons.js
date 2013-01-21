@@ -1869,14 +1869,12 @@ if (comparison_choice == 2){
 };
 
 function getResult(defaults, values){
-                //$('#page1').hide();
-                //console.log(choice+' '+location+' '+swimSeason+' '+surfaceArea+' '+parseInt(desiredTemp)+' '+solarBlanket+' '+spaUsage+' '+heatSource);
-                //$('#page2').show();
-                $('#resultsTable').children('.location').append(defaults['location']);
-                $('#resultsTable').children('.season').append(defaults['season']);
-                $('#resultsTable').children('.area').append(defaults['area']);
-                $('#resultsTable').children('.cover').append(defaults['cover']);
-                $('#resultsTable').children('.model').append(defaults['model']);
+                
+                $('#resultsTable').children('.location').replaceWith('<div class="ui-block-c"><span>'+defaults['location']+'</span></div>');
+                $('#resultsTable').children('.season').replaceWith('<div class="ui-block-c"><span>'+defaults['season']+'</span></div>');
+                $('#resultsTable').children('.area').replaceWith('<div class="ui-block-c"><span>'+defaults['area']+'</span></div>');
+                $('#resultsTable').children('.cover').replaceWith('<div class="ui-block-c"><span>'+defaults['cover']+'</span></div>');
+                $('#resultsTable').children('.model').replaceWith('<div class="ui-block-c"><span>'+defaults['model']+'</span></div>');
                 if(defaults.choice == 2){
                                 $('#var').children().remove();
                                 var row = '<div class="ui-block-a"><span>Spa Usage (days/week)</span></div><div class="ui-block-b"></div><div class="ui-block-c"><span>'+values['spa']+'<span></div>';
@@ -1898,21 +1896,16 @@ function getResult(defaults, values){
                                 row += '<div class="ui-block-a"><span>'+ 'vs. Propane Heater' +'</span></div><div class="ui-block-b"><span></span></div><div class="ui-block-c"><span>'+values['lpPoolCO2Save'].toFixed(0)+'</span></div>'; 
                                 $('#var').append(row);
                 }else{
-                                $('#var').children().remove();
+                               $('#var').children().remove();
+                                
                                 var row = '<div class="ui-block-a"><span><strong>Heating Option</strong></span></div><div class="ui-block-b"><strong>Annual Cost</strong></div><div class="ui-block-c"><strong>Savings</strong></div>';
                                 row += '<div class="ui-block-a"><span>AquaComfort</span></div><div class="ui-block-b"><span>$'+values['acPoolCost'].toFixed(2)+'</span></div><div class="ui-block-c"><span></span></div>';
-                                row += '<div class="ui-block-a"><span>Natural Gas Heater</span></div><div class="ngOC ui-block-b"><span>$'+values['npPoolCost'].toFixed(2)+'</span></div><div class="ui-block-c"><span>$'+values['npPoolCostSave'].toFixed(2)+'</span></div>';
+                                row += '<div class="ui-block-a"><span>Natural Gas Heater</span></div><div class="ngOC ui-block-b"><span>$'+values.ngPoolCost.toFixed(2)+'</span></div><div class="ui-block-c"><span>$'+values.ngPoolCostSave.toFixed(2)+'</span></div>';
                                 row += '<div class="ui-block-a"><span>Propane Heater</span></div><div class="proOC ui-block-b"><span>$'+values['lpPoolCost'].toFixed(2)+'</span></div><div class="ui-block-c"><span></span>$'+values['lpPoolCostSave'].toFixed(2)+'</div>';
                                 $('#var').append(row);
                 }
                 
                 
-                
-
-
-
-
-                //        </div>
                 
 };
 var getSeasons = function(e){
@@ -2161,11 +2154,7 @@ $(document).ready(function() {
 
             
             var choice = $("input[name='radio1']:checked").val();
-            
-            
-            
-            
-            
+ 
             if($('#city-select').children('li').hasClass('selected')){
                                 var location = $('#city-select').children('.selected').attr('id');
                 }else{
@@ -2182,7 +2171,7 @@ $(document).ready(function() {
                 
                 }else if($("input[name='width']").val() != "width" && $("input[name='length']").val() != "length" ){
                 
-                                var surfaceArea = parseInt($("input[name='width']").val()) * parseInt($("input[name='width']").val());
+                                var surfaceArea = parseInt($("input[name='width']").val()) * parseInt($("input[name='length']").val());
                 
                 }else{
                                 alert('Please Indicate your Pools Surface Area');
@@ -2190,7 +2179,7 @@ $(document).ready(function() {
             if($('#temp-select').children('li').hasClass('selected')){
                                 var desiredTemp = $('#temp-select').children('.selected').attr('id');
                                 var dt = desiredTemp.split('p');
-                                var desiredTemp = dt[1];
+                                desiredTemp = dt[1];
                 }else{
                                 alert('Please Select A Desired Temp');
                 }
@@ -2207,7 +2196,7 @@ $(document).ready(function() {
                 if($('#spa-select').children('li').hasClass('selected')){
                                 var spaUsage = $('#spa-select').children('.selected').attr('id');
                                 var dt = spaUsage.split('a');
-                                var spaUsage = dt[1];
+                                spaUsage = dt[1];
                 }else{
                                 alert('Please Select A Spa Option');
                 }
